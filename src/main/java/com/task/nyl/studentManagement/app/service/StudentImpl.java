@@ -34,7 +34,7 @@ public class StudentImpl implements StudentService {
 
     @Override
     public StudentDTO createStudent(StudentDTO studentDTO) {
-
+        if(studentRepo.findStudentByEmail(studentDTO.getEmail())!=null) throw new UserServiceException(ErrorMessages.EMAIL_ALREADY_EXISTS.getErrorMessage());
         for (int i = 0; i < studentDTO.getAddresses().size(); i++) {
             AddressDTO address = studentDTO.getAddresses().get(i);
             address.setStudentEntity(studentDTO);
